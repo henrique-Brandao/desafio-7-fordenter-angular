@@ -1,0 +1,47 @@
+<main class="pagina d-flex min-vh-100">
+    <!-- Seção da Imagem (Ranger) -->
+    <div class="imagem-container d-none d-lg-flex col-lg-6 p-0">
+        <img src="imgs/ranger.png" alt="Ford Ranger" class="img-fluid h-100 w-100 object-fit-cover">
+    </div>
+
+    <!-- Seção do Formulário -->
+    <div class="formulario-container col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center p-5">
+        <img src="imgs/ford.png" alt="Ford Logo" class="mb-4 ford-logo" style="max-width: 150px; margin-top: -60px;">
+
+
+        <h2 class="text-success fw-bold mb-4">Boas-vindas</h2>
+        
+        <form class="w-100" style="max-width: 400px;">
+            <!-- Email -->
+            <div class="mb-3 d-flex justify-content-center align-items-center">
+                <input 
+                    type="email" 
+                    placeholder="Insira seu e-mail" 
+                    class="form-control border-0 border-bottom rounded-0 py-2 px-0"
+                    
+                >
+                <i class="bi bi-person-fill"></i>
+
+            </div>
+
+            <!-- Senha -->
+            <div class="mb-4 d-flex justify-content-center align-items-center">
+                <input 
+                    type="password" 
+                    placeholder="Insira sua senha" 
+                    class="form-control border-0 border-bottom rounded-0 py-2 px-0"
+                    >
+                    <i class="bi bi-lock-fill"></i>
+            </div>
+
+            <!-- Checkbox "Logar automaticamente" -->
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="logar-auto">
+                <label class="form-check-label" for="logar-auto">Logar automaticamente</label>
+            </div>
+
+            <!-- Botão de Enviar -->
+            <button class="btn btn-primary w-100 py-2 fw-bold">ENVIAR</button>
+        </form>
+    </div>
+</main>

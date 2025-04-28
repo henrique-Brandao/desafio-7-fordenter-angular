@@ -1,0 +1,29 @@
+
+.pagina {
+  background-color: #f8f9fa; 
+}
+
+.imagem-container {
+  background-color: #000; 
+}
+
+/* Inputs estilizados */
+.form-control {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.form-control:focus {
+  border-color: #198754 !important; 
+}
+
+.form-check-input {
+  margin-top: 0.2em;
+}
+
+.ford-logo {
+  max-width: 150px;
+  margin-top: -60px;
+  margin-bottom: 2.5rem; /* ou ajuste conforme o espaçamento desejado */
+}
