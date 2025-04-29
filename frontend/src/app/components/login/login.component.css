@@ -4,7 +4,10 @@
 }
 
 .imagem-container {
-  background-color: #000; 
+  background-color: #ffffff;
+  justify-content: center;
+  align-items: center; 
+  opacity: 40%;
 }
 
 /* Inputs estilizados */
@@ -26,4 +29,9 @@
   max-width: 150px;
   margin-top: -60px;
   margin-bottom: 2.5rem; /* ou ajuste conforme o espaçamento desejado */
+}
+
+#logar-auto {
+  width: 2.5rem;
+  height: 1.5rem;
 }
