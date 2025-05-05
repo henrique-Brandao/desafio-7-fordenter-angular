@@ -1,17 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  private apiUrl = 'http://localhost:3000/api/login';
 
-  private apiUrl = 'http://localhost:3001/login';
+  constructor(private http: HttpClient, private router: Router) {}
 
-  constructor(private http: HttpClient) {}
+  // Método para fazer login
+  fazerLogin(username: string, password: string) {
+    return this.http.post(this.apiUrl, { username, password });
+  }
 
-  login(nome: string, senha: string): Observable<any> {
-    return this.http.post(this.apiUrl, { nome, senha });
+  // Método para verificar se está logado
+  estaLogado(): boolean {
+    return localStorage.getItem('usuarioFord') !== null;
+  }
+
+  // Método para salvar o login
+  salvarLogin(resposta: any): void {
+    localStorage.setItem('usuarioFord', JSON.stringify(resposta));
+  }
+
+  // Método para fazer logout
+  sair(): void {
+    localStorage.removeItem('usuarioFord');
+    this.router.navigate(['/login']);
   }
 }

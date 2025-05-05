@@ -1,43 +1,56 @@
 <main class="pagina d-flex min-vh-100">
-    <!-- Seção da Imagem (Ranger) -->
-    <div class="imagem-container d-none d-lg-flex col-lg-6 p-0">
-        <img src="imgs/ranger.png" alt="Ford Ranger" class="img-fluid w-50- ">
-    </div>
+  <!-- Seção da Imagem (Ranger) -->
+  <div class="imagem-container d-none d-lg-flex col-lg-6 p-0">
+      <img src="imgs/ranger.png" alt="Ford Ranger" class="img-fluid w-50- ">
+  </div>
 
-    <!-- Seção do Formulário -->
-    <div class="formulario-container col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center p-5">
-        <img src="imgs/ford.png" alt="Ford Logo" class="mb-4 ford-logo" style="max-width: 150px; margin-top: -60px;">
+  <!-- Seção do Formulário -->
+  <div class="formulario-container col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center p-5">
+      <img src="imgs/ford.png" alt="Ford Logo" class="mb-4 ford-logo" style="max-width: 150px; margin-top: -60px;">
 
 
-        <h2 class="text-success fw-bold mb-4">Boas-vindas</h2>
+      <h2 class="text-success fw-bold mb-4">Boas-vindas</h2>
 
-        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-            <div class="mb-3 d-flex justify-content-center align-items-center">
-              <i class="bi bi-person p-1"></i>
-              <input
-                name="nome"
-                [(ngModel)]="nome"
-                required
-                type="text"
-                placeholder="Insira seu e-mail"
-                class="form-control border-0 border-bottom rounded-0 py-2 px-0"
-              />
-            </div>
-          
-            <div class="mb-4 d-flex justify-content-center align-items-center">
-              <i class="bi bi-lock p-1"></i>
-              <input
-                name="senha"
-                [(ngModel)]="senha"
-                required 
-                type="password"
-                placeholder="Insira sua senha"
-                class="form-control border-0 border-bottom rounded-0 py-2 px-0"
-              />
-            </div>
-          
-            <button class="btn btn-primary w-100 py-2 fw-bold" [disabled]="!loginForm.form.valid">ENVIAR</button>
-          </form>
-          
-    </div>
+      <form (ngSubmit)="enviarFormulario(loginForm)" #loginForm="ngForm">
+          <div class="mb-3 d-flex justify-content-center align-items-center">
+            <i class="bi bi-person p-1"></i>
+            <input
+              name="usuario"
+              [(ngModel)]="usuario"
+              required
+              type="text"
+              placeholder="Insira seu usuário (admin)"
+              class="form-control border-0 border-bottom rounded-0 py-2 px-0"
+            />
+          </div>
+        
+          <div class="mb-4 d-flex justify-content-center align-items-center">
+            <i class="bi bi-lock p-1"></i>
+            <input
+              name="senha"
+              [(ngModel)]="senha"
+              required 
+              type="password"
+              placeholder="Insira sua senha (123456)"
+              class="form-control border-0 border-bottom rounded-0 py-2 px-0"
+            />
+          </div>
+
+          <!-- Mensagem de erro -->
+          <div *ngIf="erro" class="alert alert-danger mb-3">
+            {{ erro }}
+          </div>
+        
+          <button 
+            class="btn btn-primary w-100 py-2 fw-bold" 
+            [disabled]="!loginForm.form.valid || carregando"
+          >
+            <span *ngIf="!carregando">ENVIAR</span>
+            <span *ngIf="carregando">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              CARREGANDO...
+            </span>
+          </button>
+        </form>
+  </div>
 </main>
