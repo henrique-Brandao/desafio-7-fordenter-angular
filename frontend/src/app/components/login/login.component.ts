@@ -12,36 +12,56 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  usuario = 'admin';  // Valor inicial para facilitar testes
-  senha = '123456';   // Valor inicial para facilitar testes
-  carregando = false;
-  erro = '';
+  username = 'admin';
+  password = '';
+  isLoading = false;
+  errorMessage = '';
+  successMessage = '';
 
   constructor(
     private loginService: LoginService,
     private router: Router
   ) {}
 
-  enviarFormulario(form: NgForm) {
+  onSubmit(form: NgForm) {
     if (!form.valid) return;
 
-    this.carregando = true;
-    this.erro = '';
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.successMessage = '';
 
-    this.loginService.fazerLogin(this.usuario, this.senha).subscribe({
-      next: (resposta: any) => {
-        this.carregando = false;
-        if (resposta.success) {
-          this.loginService.salvarLogin(resposta);
-          this.router.navigate(['/home']);
+    this.loginService.login(this.username, this.password).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        
+        if (response.success) {
+          this.successMessage = 'Login realizado com sucesso!';
+          // Redireciona após 1 segundo
+          setTimeout(() => {
+            this.router.navigate(['/home']);
+          }, 1000);
         } else {
-          this.erro = 'Usuário ou senha incorretos';
+          this.errorMessage = response.message || 'Credenciais inválidas';
         }
       },
-      error: () => {
-        this.carregando = false;
-        this.erro = 'Erro ao conectar com o servidor';
+      error: (err) => {
+        this.isLoading = false;
+        if (err.status === 0) {
+          this.errorMessage = 'Não foi possível conectar ao servidor';
+        } else {
+          this.errorMessage = 'Erro durante o login';
+        }
+        console.error('Erro no login:', err);
       }
     });
+    // No seu login.component.ts
+this.loginService.login(this.username, this.password).subscribe({
+  next: (res) => {
+    if (res.success) {
+      localStorage.setItem('usuarioFord', JSON.stringify(res.user));
+      this.router.navigate(['/home']);
+    }
+  }
+});
   }
 }

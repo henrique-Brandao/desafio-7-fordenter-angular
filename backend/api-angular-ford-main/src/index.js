@@ -1,34 +1,29 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // Habilita CORS e JSON parsing
 app.use(cors());
 app.use(express.json());
 
-// Usuário fixo (admin/123456)
-const USER = { 
-  username: 'admin', 
-  password: '123456' 
-};
 
 // Rota de login
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
   
-  if (username === USER.username && password === USER.password) {
+  if (username === 'admin' && password === '123456') {
     return res.json({ 
       success: true,
-      user: { username: USER.username },
-      token: 'simulado-123' // Adicionei um token simulado
+      user: { username: 'admin' },
+      token: 'token-simulado-123' 
+    });
+  } else {
+    return res.status(401).json({ 
+      success: false,
+      message: 'Usuarios ou senha incorretos' 
     });
   }
-  
-  return res.status(401).json({ 
-    success: false,
-    message: 'Credenciais inválidas' 
-  });
 });
 
 // Health check
