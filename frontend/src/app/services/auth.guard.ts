@@ -20,11 +20,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       // Redireciona para o login com a URL de origem
-      return this.router.createUrlTree(['/login'], {
-        queryParams: { 
-          returnUrl: this.router.url 
-        }
-      });
+      return this.router.createUrlTree(['/login']);
     }
   }
 }

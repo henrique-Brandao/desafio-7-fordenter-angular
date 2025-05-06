@@ -1,21 +1,20 @@
+// login.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = 'http://localhost:3001/api/login'; // Use sua porta
+  private apiUrl = 'http://localhost:3001/login'; // Corrigido
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
-  login(username: string, password: string) {
+  login(nome: string, senha: string) {
     return this.http.post<{
-      success: boolean;
-      user?: any;
-      token?: string;
-      message?: string;
-    }>(this.apiUrl, { username, password });
+      id: number;
+      nome: string;
+      email: string;
+    }>(this.apiUrl, { nome, senha });
   }
 }

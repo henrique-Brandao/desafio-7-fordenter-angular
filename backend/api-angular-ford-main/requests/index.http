@@ -1,22 +1,20 @@
-@baseUrl = http://localhost:3000
+###
+GET http://localhost:3001/vehicles
+Accept: : application/json
 
-### Health Check
-GET {{baseUrl}}/api/status
-
-### Login válido
-POST {{baseUrl}}/api/login
+###
+POST http://localhost:3001/login
 Content-Type: application/json
 
 {
-  "username": "admin",
-  "password": "123456"
+    "nome": "admin",
+    "senha": "123"
 }
 
-### Login inválido
-POST {{baseUrl}}/api/login
+###
+POST http://localhost:3001/vehicleData
 Content-Type: application/json
 
 {
-  "username": "usuario",
-  "password": "senha"
+    "vin": "2FRHDUYS2Y63NHD22454"
 }

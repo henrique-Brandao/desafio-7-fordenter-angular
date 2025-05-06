@@ -1,3 +1,4 @@
+// login.component.ts
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username = 'admin';
+  username = '';
   password = '';
   isLoading = false;
   errorMessage = '';
@@ -31,37 +32,25 @@ export class LoginComponent {
     this.successMessage = '';
 
     this.loginService.login(this.username, this.password).subscribe({
-      next: (response) => {
+      next: (res) => {
         this.isLoading = false;
-        
-        if (response.success) {
-          this.successMessage = 'Login realizado com sucesso!';
-          // Redireciona após 1 segundo
-          setTimeout(() => {
-            this.router.navigate(['/home']);
-          }, 1000);
-        } else {
-          this.errorMessage = response.message || 'Credenciais inválidas';
-        }
+
+        // Salvando dados no localStorage
+        localStorage.setItem('usuarioFord', JSON.stringify(res));
+
+        this.successMessage = 'Login realizado com sucesso!';
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 1000);
       },
       error: (err) => {
         this.isLoading = false;
-        if (err.status === 0) {
-          this.errorMessage = 'Não foi possível conectar ao servidor';
+        if (err.status === 401) {
+          this.errorMessage = 'Usuário ou senha incorretos.';
         } else {
-          this.errorMessage = 'Erro durante o login';
+          this.errorMessage = 'Erro ao tentar fazer login.';
         }
-        console.error('Erro no login:', err);
       }
     });
-    // No seu login.component.ts
-this.loginService.login(this.username, this.password).subscribe({
-  next: (res) => {
-    if (res.success) {
-      localStorage.setItem('usuarioFord', JSON.stringify(res.user));
-      this.router.navigate(['/home']);
-    }
-  }
-});
   }
 }
